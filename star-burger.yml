@@ -1,0 +1,20 @@
+services:
+
+  backend:
+    build: ./backend
+    container_name: star-burger-backend
+    restart: always
+    env_file: .env
+    ports:
+      - "8080:8080"
+    volume: 
+      - ./static:/opt/star-burger/static
+      - ./media:/opt/star-burger/media
+
+  frontend:
+    build: ./frontend
+    container_name: star-burger-front
+    restart: always
+    volume: 
+      - ./static:/opt/star-burger/static
+      - ./media:/opt/star-burger/media

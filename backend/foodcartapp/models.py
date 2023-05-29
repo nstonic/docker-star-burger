@@ -176,6 +176,7 @@ class OrderQuerySet(QuerySet):
     def filter_active(self):
         return self.filter(status__in=['NEW', 'PICKING', 'DELIVERING']). \
             calculate_costs(). \
+            prefetch_related('products_in_cart__product'). \
             order_by('status', '-created_at')
 
     def get_available_restaurants(self):
@@ -209,7 +210,10 @@ class OrderQuerySet(QuerySet):
         return self
 
     def get_distances_to_client(self):
-        restaurant_addresses = {restaurant.address for restaurant in Restaurant.objects.all()}
+        restaurant_addresses = set()
+        for order in self:
+            for restaurant in order.available_restaurants:
+                restaurant_addresses.add(restaurant.address)
         orders_addresses = {order.address for order in self}
         all_places = _get_places(restaurant_addresses | orders_addresses)
 
