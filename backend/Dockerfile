@@ -3,9 +3,5 @@ WORKDIR /opt/star-burger
 COPY requirements.txt requirements.txt
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-COPY foodcartapp foodcartapp
-COPY places places
-COPY restaurateur restaurateur
-COPY star_burger star_burger
-COPY manage.py manage.py
+COPY . .
 CMD ["python3", "manage.py", "migrate"]
