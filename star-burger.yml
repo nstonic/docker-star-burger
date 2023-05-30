@@ -22,7 +22,7 @@ services:
     container_name: star-burger-backend
     depends_on:
       - db
-    command: sh -c "gunicorn --bind 127.0.0.1:8080 app.wsgi"
+    command: sh -c "gunicorn -w 1 --bind 127.0.0.1:8080 star_burger.wsgi"
     restart: always
     env_file: .env
     expose:
