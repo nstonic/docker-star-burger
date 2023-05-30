@@ -1,3 +1,4 @@
+version: "3,9"
 services:
 
   db:
@@ -12,7 +13,7 @@ services:
     build: ./frontend
     container_name: star-burger-front
     restart: always
-    volume: 
+    volumes: 
       - static:/opt/star-burger/static
       - media:/opt/star-burger/media
 
@@ -26,7 +27,7 @@ services:
     env_file: .env
     expose:
       - 8080
-    volume: 
+    volumes: 
       - static:/opt/star-burger/static
       - media:/opt/star-burger/media
       - pg_data:/var/lib/postgresql/data
