@@ -1,5 +1,5 @@
 server {
-    server_name starburger.ns-tonic.site ns-tonic.site;
+    server_name 192.168.0.254;
     location / {
         include '/etc/nginx/proxy_params';
         proxy_pass backend:8080/;

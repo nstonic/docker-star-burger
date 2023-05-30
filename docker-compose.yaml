@@ -11,8 +11,8 @@ services:
 
   frontend:
     build: ./frontend
-    container_name: star-burger-front
-    restart: always
+    container_name: star-burger-frontend
+    restart: on-failure
     volumes: 
       - static:/opt/star-burger/static
       - media:/opt/star-burger/media
@@ -22,7 +22,8 @@ services:
     container_name: star-burger-backend
     depends_on:
       - db
-    command: sh -c "gunicorn -w 1 --bind 127.0.0.1:8080 star_burger.wsgi"
+      - frontend
+    command: gunicorn -w 3 -p 8080 star_burger.wsgi
     restart: always
     env_file: .env
     expose:
@@ -41,6 +42,7 @@ services:
     volumes:
       - static:/opt/star-burger/static
       - media:/opt/star-burger/media
+      - ./nginx:/etc/nginx
 
 volumes:
   static:
