@@ -1,7 +1,10 @@
 FROM python:3.10
 WORKDIR /opt/star-burger
-COPY requirements.txt requirements.txt
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+ENV PYTHONDONTWRITEBYTECODE=1    
+COPY requirements.txt .
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
-CMD ["python3", "manage.py", "migrate"]
+CMD ["python3", "./manage.py", "collectstatic"]
+CMD ["python3", "./manage.py", "migrate"]
+

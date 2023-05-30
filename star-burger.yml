@@ -1,20 +1,47 @@
 services:
 
-  backend:
-    build: ./backend
-    container_name: star-burger-backend
-    restart: always
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    expose:
+      - 5432
     env_file: .env
-    ports:
-      - "8080:8080"
-    volume: 
-      - ./static:/opt/star-burger/static
-      - ./media:/opt/star-burger/media
 
   frontend:
     build: ./frontend
     container_name: star-burger-front
     restart: always
     volume: 
-      - ./static:/opt/star-burger/static
-      - ./media:/opt/star-burger/media
+      - static:/opt/star-burger/static
+      - media:/opt/star-burger/media
+
+  backend:
+    build: ./backend
+    container_name: star-burger-backend
+    depends_on:
+      - db
+    command: sh -c "gunicorn --bind 127.0.0.1:8080 app.wsgi"
+    restart: always
+    env_file: .env
+    expose:
+      - 8080
+    volume: 
+      - static:/opt/star-burger/static
+      - media:/opt/star-burger/media
+      - pg_data:/var/lib/postgresql/data
+
+  nginx:
+    image: nginx:1.25.0-alpine
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    volumes:
+      - static:/opt/star-burger/static
+      - media:/opt/star-burger/media
+
+volumes:
+  static:
+  media:
+  pg_data:
