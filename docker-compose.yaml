@@ -1,4 +1,4 @@
-version: "3,9"
+version: "3.9"
 services:
 
   db:
@@ -23,26 +23,25 @@ services:
     depends_on:
       - db
       - frontend
-    command: gunicorn -w 3 -p 8080 star_burger.wsgi
+    command: gunicorn -w 3 -p 8000 star_burger.wsgi
     restart: always
     env_file: .env
     expose:
-      - 8080
+      - 8000
     volumes: 
       - static:/opt/star-burger/static
       - media:/opt/star-burger/media
-      - pg_data:/var/lib/postgresql/data
 
   nginx:
-    image: nginx:1.25.0-alpine
+    build: ./nginx
     depends_on:
       - backend
+    restart: always
     ports:
       - "80:80"
     volumes:
       - static:/opt/star-burger/static
       - media:/opt/star-burger/media
-      - ./nginx:/etc/nginx
 
 volumes:
   static:
