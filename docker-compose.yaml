@@ -12,6 +12,7 @@ services:
   frontend:
     build: ./frontend
     container_name: star-burger-frontend
+    command: sh -c "./node_modules/.bin/parcel build bundles-src/index.js --dist-dir bundles --public-url="./""
     restart: on-failure
     volumes: 
       - static:/opt/star-burger/static
@@ -23,9 +24,8 @@ services:
     depends_on:
       - db
       - frontend
-    command: gunicorn -w 3 -p 8000 star_burger.wsgi
+    command: sh -c "python3 manage.py migrate && python3 manage.py collectstatic && gunicorn -w 3 --bind 0.0.0.0:8000 star_burger.wsgi"
     restart: always
-    env_file: .env
     expose:
       - 8000
     volumes: 
