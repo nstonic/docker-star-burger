@@ -7,4 +7,3 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 RUN mkdir static
 COPY . .
-CMD ["python3", "manage.py", "collectstatic", "--noinput"]
