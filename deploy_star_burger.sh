@@ -9,7 +9,7 @@ echo "Starting dockers"
 docker compose up -d
 
 echo "Collect static files"
-cp /var/lib/docker/volumes/star-burger_static/_data "/var/lib/docker/volumes/star-burger_frontend/_data
+cp /var/lib/docker/volumes/star-burger_static/_data /var/lib/docker/volumes/star-burger_frontend/_data
 
 
 echo "Reporting to Rollbar"
