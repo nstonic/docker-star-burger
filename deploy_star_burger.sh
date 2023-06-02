@@ -6,7 +6,7 @@ git stash
 git pull
 
 echo "Starting dockers"
-docker compose up -d
+docker compose up
 
 echo "Collect static files"
 sudo cp -r /var/lib/docker/volumes/docker-star-burger_static/_data /var/lib/docker/volumes/docker-star-burger_frontend/_data
