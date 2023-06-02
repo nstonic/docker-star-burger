@@ -10,7 +10,6 @@ docker compose up -d
 
 echo "Collect static files"
 sudo cp -r /var/lib/docker/volumes/docker-star-burger_static/_data /var/lib/docker/volumes/docker-star-burger_frontend
-sudo cp -r /var/lib/docker/volumes/docker-star-burger_frontend/_data/bundles/. /var/lib/docker/volumes/docker-star-burger_frontend/_data
 
 
 echo "Reporting to Rollbar"
