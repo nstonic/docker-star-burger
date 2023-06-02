@@ -3,6 +3,7 @@ services:
 
   db:
     image: postgres:13-alpine
+    container_name: star-burger-db
     volumes:
       - pg_data:/var/lib/postgresql/data
     expose:
@@ -33,6 +34,7 @@ services:
 
   nginx:
     build: ./nginx
+    container_name: star-burger-nginx
     depends_on:
       - backend
     restart: always
