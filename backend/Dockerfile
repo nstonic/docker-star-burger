@@ -5,7 +5,6 @@ ENV PYTHONUNBUFFERED 1
 RUN pip install --no-cache-dir --upgrade pip
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-RUN python3 manage.py migrate
 RUN mkdir static
 COPY . .
 CMD ["python3", "manage.py", "collectstatic", "--noinput"]
