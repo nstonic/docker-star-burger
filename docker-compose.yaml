@@ -24,7 +24,7 @@ services:
     depends_on:
       - db
       - frontend
-    command: bash -c "python3 manage.py collectstatic --noinput && gunicorn -w 3 --bind 0.0.0.0:8000 star_burger.wsgi"
+    command: bash -c "python3 manage.py migrate && python3 manage.py collectstatic --noinput && gunicorn -w 3 --bind 0.0.0.0:8000 star_burger.wsgi"
     restart: always
     expose:
       - 8000
