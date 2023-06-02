@@ -15,8 +15,7 @@ services:
     command: sh -c "./node_modules/.bin/parcel build bundles-src/index.js --dist-dir bundles --public-url="./""
     restart: on-failure
     volumes: 
-      - frontend:/opt/star-burger/static
-      - media:/opt/star-burger/media
+      - frontend:/opt/star-burger
 
   backend:
     build: ./backend
@@ -40,7 +39,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - frontend:/opt/star-burger/static
+      - frontend:/opt/star-burger/frontend
       - media:/opt/star-burger/media
 
 volumes:
