@@ -8,4 +8,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN python3 manage.py migrate
 RUN mkdir static
 COPY . .
-CMD ["python3", "manage.py", "collectstatic"]
+CMD ["python3", "manage.py", "collectstatic", "--noinput"]
